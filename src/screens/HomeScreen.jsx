@@ -1,13 +1,15 @@
-import React from 'react';
-import {
-    View,
-    Text,
-    StyleSheet,
-    ScrollView,
-    TouchableOpacity,
-} from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
+import RecommendedRoutes from '../components/RecommendedRoutes';
+import { useEffect, useState } from 'react';
+import { routesApi } from '../api';
 
 export default function HomeScreen({ navigation }) {
+    const [routes, setRoutes] = useState([])
+    useEffect (()=>{
+        routesApi.getAll()
+        .then(setRoutes)
+        .catch((error) => Alert.alert("Error", error.message))
+    },[])
     return (
         <ScrollView style={styles.container}>
 
@@ -72,61 +74,10 @@ export default function HomeScreen({ navigation }) {
                 </TouchableOpacity>
             </View>
 
-            {/* Route 1 */}
-            <TouchableOpacity
-                style={styles.routeCard}
-                onPress={() =>
-                    navigation.navigate('MountainDetails', {
-                        mountainId: 'chernivrah',
-                    })
-                }
-            >
-                <View style={styles.routeIcon}>
-                    <Text style={styles.mountainIcon}>🏔️</Text>
-                </View>
+            {routes.map((route) => (
+                <RecommendedRoutes key={route.id} {...route} />
+            ))}
 
-                <View style={styles.routeInfo}>
-                    <Text style={styles.routeTitle}>Cherni Vrah</Text>
-                    <Text style={styles.routeLocation}>
-                        📍 Vitosha Mountain
-                    </Text>
-
-                    <View style={styles.routeDetails}>
-                        <Text style={styles.detail}>🥾 8.4 km</Text>
-                        <Text style={styles.detail}>⏱️ 3h 20m</Text>
-                    </View>
-                </View>
-
-                <Text style={styles.distance}>3.2 km</Text>
-            </TouchableOpacity>
-
-            {/* Route 2 */}
-            <TouchableOpacity
-                style={styles.routeCard}
-                onPress={() =>
-                    navigation.navigate('MountainDetails', {
-                        mountainId: 'boyana',
-                    })
-                }
-            >
-                <View style={styles.routeIcon}>
-                    <Text style={styles.mountainIcon}>🏔️</Text>
-                </View>
-
-                <View style={styles.routeInfo}>
-                    <Text style={styles.routeTitle}>Boyana Waterfall</Text>
-                    <Text style={styles.routeLocation}>
-                        📍 Vitosha Mountain
-                    </Text>
-
-                    <View style={styles.routeDetails}>
-                        <Text style={styles.detail}>🥾 5.7 km</Text>
-                        <Text style={styles.detail}>⏱️ 2h 10m</Text>
-                    </View>
-                </View>
-
-                <Text style={styles.distance}>5.8 km</Text>
-            </TouchableOpacity>
 
         </ScrollView>
     );
@@ -251,59 +202,5 @@ const styles = StyleSheet.create({
         fontWeight: '600',
     },
 
-    routeCard: {
-        backgroundColor: '#FFFFFF',
-        borderRadius: 16,
-        padding: 15,
-        marginBottom: 15,
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-
-    routeIcon: {
-        width: 55,
-        height: 55,
-        borderRadius: 28,
-        backgroundColor: '#DCE8DE',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginRight: 12,
-    },
-
-    mountainIcon: {
-        fontSize: 26,
-    },
-
-    routeInfo: {
-        flex: 1,
-    },
-
-    routeTitle: {
-        fontSize: 17,
-        fontWeight: 'bold',
-        color: '#1F3D2B',
-    },
-
-    routeLocation: {
-        color: '#777',
-        fontSize: 13,
-        marginTop: 4,
-    },
-
-    routeDetails: {
-        flexDirection: 'row',
-        marginTop: 7,
-        gap: 12,
-    },
-
-    detail: {
-        color: '#555',
-        fontSize: 12,
-    },
-
-    distance: {
-        color: '#315C3B',
-        fontWeight: 'bold',
-        fontSize: 12,
-    },
+   
 });
