@@ -2,14 +2,15 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'rea
 import RecommendedRoutes from '../components/RecommendedRoutes';
 import { useEffect, useState } from 'react';
 import { routesApi } from '../api';
+import MapView from 'react-native-maps';
 
 export default function HomeScreen({ navigation }) {
     const [routes, setRoutes] = useState([])
-    useEffect (()=>{
+    useEffect(() => {
         routesApi.getAll()
-        .then(setRoutes)
-        .catch((error) => Alert.alert("Error", error.message))
-    },[])
+            .then(setRoutes)
+            .catch((error) => Alert.alert("Error", error.message))
+    }, [])
     return (
         <ScrollView style={styles.container}>
 
@@ -53,12 +54,9 @@ export default function HomeScreen({ navigation }) {
             </View>
 
             {/* Map placeholder */}
+            {/* Map */}
             <View style={styles.mapCard}>
-                <Text style={styles.mapIcon}>🗺️</Text>
-                <Text style={styles.mapTitle}>Your location</Text>
-                <Text style={styles.mapText}>
-                    Nearby hiking routes will appear here
-                </Text>
+                <MapView style={styles.map} />
             </View>
 
             {/* Recommended routes */}
@@ -74,7 +72,7 @@ export default function HomeScreen({ navigation }) {
                 </TouchableOpacity>
             </View>
 
-            {routes.slice(0,3).map((route) => (
+            {routes.slice(0, 3).map((route) => (
                 <RecommendedRoutes key={route.id} {...route} />
             ))}
 
@@ -196,11 +194,15 @@ const styles = StyleSheet.create({
         color: '#777',
         marginTop: 5,
     },
+    map: {
+        width: '100%',
+        height: '100%',
+    },
 
     seeAll: {
         color: '#315C3B',
         fontWeight: '600',
     },
 
-   
+
 });
