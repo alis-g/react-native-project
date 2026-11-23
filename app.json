@@ -1,5 +1,12 @@
 {
   "expo": {
+    "plugins": [
+      [
+        "expo-location",{
+           "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
+        }
+      ]
+    ],
     "name": "react-native-project",
     "slug": "react-native-project",
     "version": "1.0.0",

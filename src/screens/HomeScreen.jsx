@@ -3,6 +3,7 @@ import RecommendedRoutes from '../components/RecommendedRoutes';
 import { useEffect, useState } from 'react';
 import { routesApi } from '../api';
 import MapView from 'react-native-maps';
+import * as Location from 'expo-location';
 
 export default function HomeScreen({ navigation }) {
     const [routes, setRoutes] = useState([])
@@ -11,6 +12,19 @@ export default function HomeScreen({ navigation }) {
             .then(setRoutes)
             .catch((error) => Alert.alert("Error", error.message))
     }, [])
+
+    const[location, setLocation] = useState(null)
+    useEffect(()=>{
+        async function getLocation() {
+            const { status } = await Location.requestForegroundPermissionsAsync()
+            if(status !== 'granted'){
+                return
+            }
+            const currentLocation = await Location.getCurrentPositionAsync({})
+            setLocation(currentLocation)
+        }
+        getLocation()
+    },[])
     return (
         <ScrollView style={styles.container}>
 
@@ -56,7 +70,7 @@ export default function HomeScreen({ navigation }) {
             {/* Map placeholder */}
             {/* Map */}
             <View style={styles.mapCard}>
-                <MapView style={styles.map} />
+                <MapView style={styles.map} showsUserLocation={true}/>
             </View>
 
             {/* Recommended routes */}
