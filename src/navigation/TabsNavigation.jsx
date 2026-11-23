@@ -1,8 +1,8 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "../screens/HomeScreen";
 import InfoScreen from "../screens/InfoScreen";
-import CartScreen from "../screens/CartScreen";
-import Ionicons from "@react-native-vector-icons/ionicons";
+import CartScreen from "../screens/MyHikesScreen";
+import Ionicons from '@react-native-vector-icons/ionicons';
 
 export default function TabsNavigation() {
     const Tabs = createBottomTabNavigator()
@@ -12,7 +12,7 @@ export default function TabsNavigation() {
             name="HomeTab" 
             component={HomeScreen}
             options={{
-                tabBarIcon : ({color, size}) => <Ionicons name="home" color={color} size={size} />}}
+                tabBarIcon : ({color, size}) => <Ionicons name="walk-outline" color={color} size={size} />}}
             />
             <Tabs.Screen 
             name="Info" 
@@ -20,11 +20,12 @@ export default function TabsNavigation() {
             options={{
                 tabBarIcon : ({color, size}) => <Ionicons name="information" color={color} size={size} />}}
             />
+            
             <Tabs.Screen 
-            name="Cart" 
+            name="My Hikes" 
             component={CartScreen}
             options={{
-                tabBarIcon : ({color, size}) => <Ionicons name="cart" color={color} size={size} />}}
+                tabBarIcon : ({color, size}) => <Ionicons name="footsteps-outline" color={color} size={size} />}}
             />
         </Tabs.Navigator>
      );
