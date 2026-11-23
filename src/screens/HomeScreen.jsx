@@ -74,7 +74,7 @@ export default function HomeScreen({ navigation }) {
                 </TouchableOpacity>
             </View>
 
-            {routes.map((route) => (
+            {routes.slice(0,3).map((route) => (
                 <RecommendedRoutes key={route.id} {...route} />
             ))}
 
