@@ -3,6 +3,8 @@ import HomeScreen from "../screens/HomeScreen";
 import InfoScreen from "../screens/InfoScreen";
 import CartScreen from "../screens/MyHikesScreen";
 import Ionicons from '@react-native-vector-icons/ionicons';
+import StartHikeScreen from "../screens/StartHikeScreen";
+import LoginRegisterScreen from "../screens/LoginRegisterScreen";
 
 export default function TabsNavigation() {
     const Tabs = createBottomTabNavigator()
@@ -20,10 +22,23 @@ export default function TabsNavigation() {
             options={{
                 tabBarIcon : ({color, size}) => <Ionicons name="information" color={color} size={size} />}}
             />
+
+                <Tabs.Screen 
+            name="Start Hike" 
+            component={StartHikeScreen}
+            options={{
+                tabBarIcon : ({color, size}) => <Ionicons name="information" color={color} size={size} />}}
+            />
             
             <Tabs.Screen 
             name="My Hikes" 
             component={CartScreen}
+            options={{
+                tabBarIcon : ({color, size}) => <Ionicons name="footsteps-outline" color={color} size={size} />}}
+            />
+             <Tabs.Screen 
+            name="Login" 
+            component={LoginRegisterScreen}
             options={{
                 tabBarIcon : ({color, size}) => <Ionicons name="footsteps-outline" color={color} size={size} />}}
             />
