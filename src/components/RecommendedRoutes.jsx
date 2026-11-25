@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 
 
 export default function RecommendedRoutes({
+    id,
     image_url,
     name,
     location,
@@ -14,12 +14,12 @@ export default function RecommendedRoutes({
             style={styles.routeCard}
             onPress={() =>
                 navigation.navigate('MountainDetails', {
-                    mountainId: 'chernivrah',
+                    mountainId: { id },
                 })
             }
         >
             <View style={styles.routeIcon}>
-                <Text style={styles.mountainIcon}>{image_url}</Text>
+                <Image style={styles.mountainIcon} source={{ uri: image_url }} />
             </View>
 
             <View style={styles.routeInfo}>
@@ -40,7 +40,7 @@ export default function RecommendedRoutes({
 }
 
 const styles = StyleSheet.create({
-     routeCard: {
+    routeCard: {
         backgroundColor: '#FFFFFF',
         borderRadius: 16,
         padding: 15,
@@ -57,10 +57,13 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginRight: 12,
+
     },
 
     mountainIcon: {
-        fontSize: 26,
+        width: 75,
+        height: 75,
+        borderRadius: 100
     },
 
     routeInfo: {
